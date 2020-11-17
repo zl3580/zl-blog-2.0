@@ -22,10 +22,15 @@ console.log("props", props)
     setActive('/message');
     history.push('/message')
   }
+  const handleImage=()=>{
+    setActive('/home');
+    history.push('/')
+  }
   return (
     <div className={styles.wrapper}>
       <div className={styles.side}>
         <div
+        onClick={handleImage}
           className={styles.sideBtn}
           style={{
             backgroundPosition: `${(active === '/home' && ' 78px 15px') ||

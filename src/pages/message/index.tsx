@@ -42,7 +42,10 @@ export default (props: any) => {
                 <img src={item.avatar} alt="" srcset="" />
               </div>
               <div className={styles.messageInfo}>
-                <div  className={styles.messageName}>{item.name}</div>
+                <div className={styles.messageName}>
+                  {item.name} 
+                  <span>{item.createdAt}</span>
+                </div>
                 <div className={styles.messageInfoContent}>{item.content}</div>
               </div>
             </div>
