@@ -1,0 +1,73 @@
+
+// @font-face
+// {
+//     font-family: blogFont;
+//     src: url(sansation_bold.woff);
+//     font-weight:bold;
+// }
+.blogContainer {
+  animation: show 2s ease;
+  .blogContent {
+    overflow: hidden;
+    padding-left: 30px;
+    .blogTime {
+      position: relative;
+      left: -23px;
+      padding: 10px;
+      color: #009688;
+      text-shadow: 4px 2px 5px #1a7e62;
+      font-size: 12px;
+      &::before {
+        content: '';
+        height: 30px;
+        width: 1px;
+        display: inline-block;
+        background: #1b413d;
+        position: relative;
+        top: -23px;
+        left: 13px;
+      }
+    }
+    .blogInfo {
+      border-left: 1px solid #1b413d;
+      overflow: hidden;
+      padding-left: 18px;
+      .blogList {
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.5s;
+        width: 300px;
+        &:hover{
+          color: rgb(64 147 229);
+        }
+      }
+      .blogTimeEnd {
+        border-bottom: 1px solid #1b413d;
+        width: 25px;
+        height: 14px;
+        position: relative;
+        left: -20px;
+      }
+    }
+  }
+}
+@keyframes show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 10;
+  }
+}
+
+
+.blogDetailsContainer{
+  animation: show 2s ease;
+  padding-right: 50px;
+  overflow-x: scroll;
+}
+
+
+
+
+

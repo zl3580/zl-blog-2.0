@@ -1,0 +1,56 @@
+@textCenter:center;
+.wrapper{
+  width: 100%;
+  height: 100vh;
+  background-color:#171717;
+  overflow: hidden;
+}
+.side{
+  padding: 150px 50px;
+  width: 30%;
+  height: 100vh;
+  color: #fff;
+  text-align: @textCenter;
+  float: left;
+  .sideBtn{
+    font-size: 50px;
+    width: 150px;
+    height: 150px;
+    border-radius: 75px;
+    border:3px solid #887f7f;
+    display: inline-block;
+    cursor: pointer;
+    background: url('./../assets/people.jpg') ;
+    background-size: 186px;
+    transition: 0.5s ease-out;
+  }
+  .navLink{
+    font-size: 26px;
+    margin-top: 16px;
+    transition: 0.5s;
+    &:hover{
+      transform: scale(1.1);
+    }
+  }
+  .githubLink{
+    margin:0 auto;
+    margin-top: 40px;
+    width: 38px;
+    height: 38px;
+    img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+.content{
+  padding: 126px 100px 200px 50px;
+  width: calc(100% - 30%);
+  height: 100vh;
+  float: left;
+  text-align: left;
+  color: #fff;
+  font-size: 20px;
+  transition: 2s;
+  overflow-y: scroll;
+}

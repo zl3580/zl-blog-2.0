@@ -1,0 +1,30 @@
+.homeContainer {
+  animation: show 2s ease;
+  .title {
+    font-size: 50px;
+    margin-bottom: 40px;
+    span {
+      font-size: 20px;
+      margin-left: 20px;
+    }
+  }
+  .contentWrap {
+    display: flex;
+    width: 814px;
+    .contentLeft {
+      flex: 1;
+    }
+    .contentRight {
+      flex: 1;
+    }
+  }
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 10;
+  }
+}
