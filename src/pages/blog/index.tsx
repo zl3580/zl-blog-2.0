@@ -14,7 +14,7 @@ export default () => {
   const [bloData,setBlogData]=useState([])
   //获取文章列表
   const {data}=useRequest(()=>({
-    url:'http://127.0.0.1:7001/api/article/find',
+    url: window.baseUrl+'/article/find',
     method:'POST',
   }),
     {

@@ -7,7 +7,7 @@ export default (props:any) => {
 console.log("props", props)
   const [active, setActive] = useState(props.location.pathname);
   const handleHome = () => {
-    setActive('/home');
+    setActive('/');
     history.push('/')
   };
   const handleBlog = () => {
@@ -23,7 +23,7 @@ console.log("props", props)
     history.push('/message')
   }
   const handleImage=()=>{
-    setActive('/home');
+    setActive('/');
     history.push('/')
   }
   return (
@@ -33,7 +33,7 @@ console.log("props", props)
         onClick={handleImage}
           className={styles.sideBtn}
           style={{
-            backgroundPosition: `${(active === '/home' && ' 78px 15px') ||
+            backgroundPosition: `${(active === '/' && ' 78px 15px') ||
               (active === '/blog' && '143px 15px') ||
               (active === '/photo' && '199px 15px')||
               (active === '/message' && '262px 15px')} `,
@@ -42,7 +42,7 @@ console.log("props", props)
         <div className={styles.navLink}>
           <a
             onClick={handleHome}
-            style={{ color: `${active === '/home' ? '#336699' : '#fff'}` }}
+            style={{ color: `${active === '/' ? '#336699' : '#fff'}` }}
           >
             首页
           </a>

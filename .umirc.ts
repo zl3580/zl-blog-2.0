@@ -12,6 +12,7 @@ export default defineConfig({
       { path: '/blog', component: '@/pages/blog/index' },
       { path: '/blog/details', component: '@/pages/blog/details' },
       { path: '/photo', component: '@/pages/photo/index' },
+      { path: '/photo/details', component: '@/pages/photo/details' },
       { path: '/message', component: '@/pages/message/index' },
     ]},
    
