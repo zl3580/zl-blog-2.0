@@ -17,4 +17,9 @@ export default defineConfig({
     ]},
    
   ],
+  // publicPath: process.env.NODE_ENV==='development'?'/':"https://cnd.lxzyl.cn/zl-blog-2.0/dist/",
+  history:{
+    type:'hash'
+  },
+  hash:true
 });
