@@ -17,6 +17,7 @@ export default (props: any) => {
   const [isEmpty, setIsEmpty] = useState([]);
   const [isEmptyContent, setIsEmptyContent] = useState(false);
 
+
   //获取照片列表
   const { run: getData } = useRequest(
     pageNum => ({
@@ -70,7 +71,7 @@ export default (props: any) => {
   };
   //提交
   const handleSubmit = async () => {
-   
+    setA({visible:false})
     if (!value.content) {
      
       setIsEmptyContent(true)
@@ -134,6 +135,7 @@ export default (props: any) => {
     }
     setTranslate(translate - 1);
   };
+ 
   return (
     <div className={styles.messageContainer}>
       <div className={styles.messageBox}>

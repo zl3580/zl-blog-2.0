@@ -2,18 +2,18 @@
 const http = require('http');
 const createHandler = require('github-webhook-handler');
 const spawn = require('child_process').spawn;
-const handler = createHandler({ path: '/front-webhook', secret: 'blog2.0' });
+const handler = createHandler({ path: '/front-webhook-2.0', secret: 'blog2.0' });
 
 
 http.createServer(function(req, res) {
-  res.end('front success');
+  res.end('blog2.0 success');
   handler(req, res, function(err) {
     console.log('err----------------------', err);
     res.statusCode = 404;
     res.end('no such location');
   });
 
-}).listen(7788);
+}).listen(8888);
 
 handler.on('error', function(err) {
   console.error('Error----------:', err.message);
