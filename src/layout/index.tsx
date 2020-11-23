@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styles from './index.less';
 import { history } from 'umi';
 import githubIcon from '@/assets/github.png';
+import emailIcon from '@/assets/email.png';
+
 
 export default (props:any) => {
 console.log("props", props)
@@ -75,6 +77,12 @@ console.log("props", props)
           <a href="https://github.com/zl3580?tab=repositories" target="_blank">
           <img src={githubIcon} alt="" />
           </a>
+        </div>
+        <div className={styles.emailLink}>
+          <img src={emailIcon} alt="" />
+        </div>
+        <div className={styles.emailNum}>
+        <span>zxc35804583@163.com</span>
         </div>
       </div>
       <div className={styles.content}>
