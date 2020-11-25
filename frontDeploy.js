@@ -2,7 +2,7 @@
 const http = require('http');
 const createHandler = require('github-webhook-handler');
 const spawn = require('child_process').spawn;
-const handler = createHandler({ path: '/front-webhook-2.0', secret: 'blog2.0' });
+const handler = createHandler({ path: '/front2.0', secret: 'blog2.0' });
 
 
 http.createServer(function(req, res) {
