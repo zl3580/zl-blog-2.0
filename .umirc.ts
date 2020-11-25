@@ -21,5 +21,7 @@ export default defineConfig({
   history:{
     type:'hash'
   },
-  hash:true
+  hash:true,
+  favicon:'https://cnd.lxzyl.cn/blog-frontcode/build/icon.ico',
+  title:'zhouli-JustDoIt'
 });
