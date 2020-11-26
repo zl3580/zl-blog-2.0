@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useRequest } from 'umi';
 import styles from './index.less';
-import './../../global.less'
-import ReactMarkdown  from 'react-markdown'
+import codeBlock from './codeBlock'
+import ReactMarkdown  from 'react-markdown/with-html'
 
 export default (props:any) => {
 let id=props.location.query.id
@@ -27,7 +27,7 @@ useEffect(()=>{
   return (
     <div className={styles.blogDetailsContainer}>
       <div className={styles.blogDetails} >
-        <ReactMarkdown source={data} className="markdown"></ReactMarkdown>
+        <ReactMarkdown children={data} renderers={{code:codeBlock}} className="markdown" allowDangerousHtml={true}></ReactMarkdown>
       </div>
     </div>
   );
