@@ -9,7 +9,7 @@
 
 .messageContainer {
   animation: show 2s ease;
- 
+
   .messageBox {
     width: 100%;
     padding: 50px 200px 50px 0;
@@ -108,9 +108,10 @@
     padding: 10px;
     .pageTranslate {
       display: inline-block;
-      width: 400px;
+      // max-width: 400px;
       overflow: hidden;
       vertical-align: bottom;
+      line-height: 38px;
     }
     .pageContainer {
       width: 4000px;
@@ -136,6 +137,60 @@
       &:hover {
         color: #80dfcf !important;
         border: 1px solid #80dfcf !important;
+      }
+    }
+    .pageItemEllipsisWrap{
+      margin: 5px;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      line-height: 30px;
+      display: inline-block;
+      cursor: pointer;
+      font-size: 14px;
+      &:hover .pageItemEllipsis{
+        display: none;
+      }
+      &:hover .pageItemEllipsisIsNext {
+        display: block;
+        color: #80dfcf;
+      }
+    }
+    .pageItemEllipsisIsNext {
+     display: none;
+    }
+    .pageItemPre {
+      margin: 5px;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      line-height: 27px;
+      display: inline-block;
+      border: 1px solid #385550;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 14px;
+      transition: 0.5s;
+      &:hover {
+        color: #80dfcf;
+        border: 1px solid #80dfcf;
+      }
+    }
+    .pageItemNext {
+      margin: 5px;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      line-height: 27px;
+      display: inline-block;
+      border: 1px solid #385550;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 14px;
+      transition: 0.5s;
+      &:hover {
+        color: #80dfcf;
+        border: 1px solid #80dfcf;
       }
     }
   }

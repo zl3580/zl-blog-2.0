@@ -17,11 +17,10 @@ export default (props: any) => {
   const [isEmpty, setIsEmpty] = useState([]);
   const [isEmptyContent, setIsEmptyContent] = useState(false);
 
-
   //获取照片列表
   const { run: getData } = useRequest(
     pageNum => ({
-      url: window.baseUrl+'/message/get',
+      url: window.baseUrl + '/message/get',
       method: 'POST',
       data: {
         pageNum,
@@ -32,6 +31,7 @@ export default (props: any) => {
       onSuccess: data => {
         console.log('data', parseInt(data.count / 10 + 1));
         setData(data.list);
+
         let length =
           data.count % 10 === 0
             ? data.count / 10
@@ -40,24 +40,35 @@ export default (props: any) => {
         setCount(length);
         setTotal(data.count);
         let pageData = [];
-        for (let i = 1; i <= length; i++) {
-          pageData.push(i);
+
+        if (length > 10) {
+          for (let i = 1; i <10; i++) {
+            pageData.push(i);
+          }
+          console.log(pageData)
+          pageData[length - 3] = '···';
+          pageData[length - 2] = length;
+        } else {
+          for (let i = 1; i <= length; i++) {
+            pageData.push(i);
+          }
         }
+        console.log(pageData)
         setPageData(pageData);
       },
     },
   );
   useEffect(() => {
     socketget(setData, setCount, setTotal);
-    console.log(window)
-    // if (window.Notification) {
-    //   // 支持
-    //   console.log('支持')
-    //   let msg=new Notification('留言板回复', {body:'你是傻逼吗'});
-    // } else {
-    //   // 不支持
-    //   console.log('不支持')
-    // }
+    console.log(window);
+    if (window.Notification) {
+      // 支持
+      console.log('支持');
+      let msg = new Notification('留言板回复', { body: '你是傻逼吗' });
+    } else {
+      // 不支持
+      console.log('不支持');
+    }
   }, []);
   //username
   const handleUsername = event => {
@@ -67,18 +78,19 @@ export default (props: any) => {
   //留言内容
   const handleContent = event => {
     setValue({ content: event.target.value, username: value.username });
-    setIsEmptyContent(false)
+    setIsEmptyContent(false);
   };
   //提交
   const handleSubmit = async () => {
-    setA({visible:false})
     if (!value.content) {
-     
-      setIsEmptyContent(true)
+      setIsEmptyContent(true);
       return;
     }
-    
-    await socketSend({ content: value.content, name: value.username||'神秘人' });
+
+    await socketSend({
+      content: value.content,
+      name: value.username || '神秘人',
+    });
     setValue({ username: '神秘人', content: '' });
     setPageCheck(1);
   };
@@ -103,10 +115,44 @@ export default (props: any) => {
 
   //分页
   const handlePage = (index: Number) => {
+    console.log('🚀 ~ file: index.tsx ~ line 105 ~ handlePage ~ index', index);
+    // getData(index);
     setPageCheck(index);
-    getData(index);
+    
     window.scrollTo(0, 0);
   };
+  
+  //下五页
+  const handlePageEllipsisIsNext=(index)=>{
+  if(index+6<count){
+let temp=[1,'···',index+1,index+2,index+3,index+4,index+5,index+6,'···',count];
+setPageData(temp)
+  }else{
+    let data=[];
+    for (let i = 1; i <= count; i++) {
+      data.push(i);
+    }
+    let temp=data.slice(-8)
+    temp.unshift(1,'···')
+    console.log(temp)
+    setPageData(temp)
+  }
+
+  }
+  //上五页
+  const handlePageEllipsisIsPre=(index)=>{
+  console.log("🚀 ~ file: index.tsx ~ line 129 ~ handlePageEllipsisIsPre ~ index", index)
+  if(index-6<=2){
+    let temp=[1,2,3,4,5,6,7,8,'···',count];
+    setPageData(temp)
+      }
+      if(index-6>2){
+       let temp=[1,'...',index-6,index-5,index-4,index-3,index-2,index-1,'···',count];
+        setPageData(temp)
+      }
+
+  }
+
   //上一页
   const handlePagePre = () => {
     let pageNumber = pageCheck - 1 > 0 ? pageCheck - 1 : 1;
@@ -135,7 +181,7 @@ export default (props: any) => {
     }
     setTranslate(translate - 1);
   };
- 
+
   return (
     <div className={styles.messageContainer}>
       <div className={styles.messageBox}>
@@ -156,17 +202,17 @@ export default (props: any) => {
             onChange={handleContent}
             value={value.content}
           ></textarea>
-           <div
-                    style={{
-                      paddingLeft:'200px',
-                      color: '#e45353',
-                      fontSize: '12px',
-                      padding: '5px',
-                      opacity: `${isEmptyContent ? '1' : '0'}`,
-                    }}
-                  >
-                    内容不能为空
-                  </div>
+          <div
+            style={{
+              paddingLeft: '200px',
+              color: '#e45353',
+              fontSize: '12px',
+              padding: '5px',
+              opacity: `${isEmptyContent ? '1' : '0'}`,
+            }}
+          >
+            内容不能为空
+          </div>
         </div>
         <div style={{ textAlign: 'right' }}>
           <input
@@ -183,7 +229,7 @@ export default (props: any) => {
           return (
             <div className={styles.messageItemContainer}>
               <div className={styles.messageAvatar}>
-                <img src={item.avatar} alt="" srcset="" />
+                <img src={item.avatar} alt="" />
               </div>
               <div className={styles.messageInfo}>
                 <div className={styles.messageName}>
@@ -223,25 +269,22 @@ export default (props: any) => {
                     value={backValue}
                     placeholder="回复内容..."
                   ></textarea>
-                  <div  className={styles.backbutton}>
-                  <a
-                   style={{marginRight:'10px'}}
-                    onClick={() => {
-                      let temp = [...isAnswerData];
-                      temp[index] = false;
-                      setIsAnswerData(temp);
-                    }}
-                  >
-                    取消
-                  </a>
-                  <a
-                   
-                    onClick={() => handleBackSubmit(index, item._id)}
-                  >
-                    提交
-                  </a>
+                  <div className={styles.backbutton}>
+                    <a
+                      style={{ marginRight: '10px' }}
+                      onClick={() => {
+                        let temp = [...isAnswerData];
+                        temp[index] = false;
+                        setIsAnswerData(temp);
+                      }}
+                    >
+                      取消
+                    </a>
+                    <a onClick={() => handleBackSubmit(index, item._id)}>
+                      提交
+                    </a>
                   </div>
-                  
+
                   <div
                     style={{
                       color: '#e45353',
@@ -260,8 +303,8 @@ export default (props: any) => {
                       let temp = [];
                       temp[index] = true;
                       setIsAnswerData(temp);
-                      setIsEmpty([])
-                      setBackValue('')
+                      setIsEmpty([]);
+                      setBackValue('');
                     }}
                   >
                     回复
@@ -273,34 +316,76 @@ export default (props: any) => {
         })}
       </div>
       <div className={styles.page}>
-        <div className={styles.pageItem} onClick={handlePagePre}>
-          {' '}
-          &lt;{' '}
+        <div
+          className={styles.pageItemPre}
+          style={{
+            color: `${pageCheck === 1 ? '#ecebeb1f' : '#385550'}`,
+            borderColor: `${pageCheck === 1 ? '#ecebeb1f' : '#385550'}`,
+            cursor: `${pageCheck === 1 ? 'not-allowed' : 'pointer'}`,
+          }}
+          onClick={handlePagePre}
+        >
+          &lt;
         </div>
-        <div className={styles.pageTranslate}>
+        <div
+          className={styles.pageTranslate}
+          style={{ width: `${count <= 10 ? 40 * count : 400}px` }}
+        >
           <div
             className={styles.pageContainer}
             style={{ transform: `translateX(${translate * 40}px)` }}
           >
-            {pageData.map(item => (
-              <div
-                className={styles.pageItem}
-                onClick={() => handlePage(item)}
-                style={{
-                  color: `${pageCheck === item ? '#80dfcf' : '#fff'}`,
-                  borderColor: `${pageCheck === item ? '#80dfcf' : '#385550'}`,
-                }}
-              >
-                {item}
-              </div>
-            ))}
+            {pageData.map((item, index) =>
+             typeof item=== 'number' ? (
+                <div
+                  className={styles.pageItem}
+                  onClick={() => handlePage(item)}
+                  style={{
+                    color: `${pageCheck === item ? '#80dfcf' : '#fff'}`,
+                    borderColor: `${
+                      pageCheck === item ? '#80dfcf' : '#385550'
+                    }`,
+                  }}
+                  key={item}
+                >
+                  {item}
+                </div>
+              ) : (
+                <div className={styles.pageItemEllipsisWrap}>
+                  <div
+                    className={styles.pageItemEllipsis}
+                    key={item}
+                  >
+                    {item}
+                  </div>
+                  {index > 2 ? (
+                    <div
+                      className={styles.pageItemEllipsisIsNext}
+                      onClick={() => handlePageEllipsisIsNext(pageData[index-1])}
+                      key={item}
+                    >
+                       &gt;&gt;
+                    </div>
+                  ) : (
+                    <div
+                      className={styles.pageItemEllipsisIsNext}
+                      onClick={() => handlePageEllipsisIsPre(pageData[index+1])}
+                      key={item}
+                    >
+                       &lt;&lt;
+                    </div>
+                  )}
+                </div>
+              )
+            )}
           </div>
         </div>
         <div
-          className={styles.pageItem}
+          className={styles.pageItemNext}
           onClick={handlePageNext}
           style={{
-            background: `${pageCheck === count ? '#ccc' : ''}`,
+            color: `${pageCheck === count ? '#ecebeb1f' : '#385550'}`,
+            borderColor: `${pageCheck === count ? '#ecebeb1f' : '#385550'}`,
             cursor: `${pageCheck === count ? 'not-allowed' : 'pointer'}`,
           }}
         >
