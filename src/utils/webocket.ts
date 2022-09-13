@@ -5,6 +5,24 @@ const socketSend=(params)=>{
   socket.on('connect', () => {
     console.log('已连接!');
     socket.emit('message', params);
+    if (window.Notification) {
+    console.log("🚀 ~ file: webocket.ts ~ line 9 ~ socket.on ~ params", params)
+      // 支持
+      console.log('支持');
+     
+      Notification.requestPermission().then(function(permission) {
+        if(permission === 'granted'){
+            console.log('用户允许通知');
+            new Notification('一条新留言', { body: `${params.name}留言:${params.content}` });
+        }else if(permission === 'denied'){
+            console.log('用户拒绝通知');
+        }
+    });
+    
+    } else {
+      // 不支持
+      console.log('不支持');
+    }
   });
 };
 const socketSendBack=(params)=>{
@@ -12,7 +30,24 @@ const socketSendBack=(params)=>{
   socket.on('connect', () => {
     console.log('已连接!');
     socket.emit('messageBack', params);
-  });
+    if (window.Notification) {
+        // 支持
+        console.log('支持');
+       
+        Notification.requestPermission().then(function(permission) {
+          if(permission === 'granted'){
+              console.log('用户允许通知');
+              new Notification('一条回复消息', { body: params.backMessage });
+          }else if(permission === 'denied'){
+              console.log('用户拒绝通知');
+          }
+      });
+      
+      } else {
+        // 不支持
+        console.log('不支持');
+      }
+    });
 };
 const socketget=(setList, setCount, setTotal)=>{
   const socket=io('https://zhouyanli.lxzyl.cn', {transports: ['websocket']});

@@ -61,14 +61,7 @@ export default (props: any) => {
   useEffect(() => {
     socketget(setData, setCount, setTotal);
     console.log(window);
-    if (window.Notification) {
-      // 支持
-      console.log('支持');
-      let msg = new Notification('留言板回复', { body: '你是傻逼吗' });
-    } else {
-      // 不支持
-      console.log('不支持');
-    }
+    
   }, []);
   //username
   const handleUsername = event => {
